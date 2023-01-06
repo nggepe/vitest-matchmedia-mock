@@ -1,7 +1,7 @@
 {
   "name": "vitest-matchmedia-mock",
   "version": "1.0.0",
-  "description": "",
+  "description": "mocking window.matchmedia with vitest",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
