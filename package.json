@@ -1,0 +1,36 @@
+{
+  "name": "vitest-matchmedia-mock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nggepe/vitest-matchmedia-mock.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nggepe/vitest-matchmedia-mock/issues"
+  },
+  "homepage": "https://github.com/nggepe/vitest-matchmedia-mock#readme",
+  "devDependencies": {
+    "prettier": "^2.8.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "vitest": "^0.26.3"
+  }
+}
