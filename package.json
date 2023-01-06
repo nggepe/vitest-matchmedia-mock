@@ -1,6 +1,6 @@
 {
   "name": "vitest-matchmedia-mock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mocking window.matchmedia with vitest",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "test": "vitest",
+    "coverage": "vitest run --coverage",
     "build": "tsc",
     "lint": "tslint -p tsconfig.json"
   },
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/nggepe/vitest-matchmedia-mock#readme",
   "devDependencies": {
+    "@vitest/coverage-c8": "^0.26.3",
     "jsdom": "^20.0.3",
     "prettier": "^2.8.1",
     "tslint": "^6.1.3",

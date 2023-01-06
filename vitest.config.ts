@@ -9,7 +9,7 @@ export default defineConfig({
     css: true,
     coverage: {
       all: true,
-      exclude: ['vitest.config.ts', '__test__/*', 'node_modules/*'],
+      exclude: ['vitest.config.ts', '__test__/*', 'node_modules/*', 'dist/*'],
     },
   },
 });
