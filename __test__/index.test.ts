@@ -1,187 +1,167 @@
 import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
-import MatchMediaMock from '../src/index'
-
-let matchMedia: MatchMediaMock;
+import MatchMediaMock from '../src/index';
 
 const appearanceMq = {
   light: '(prefers-color-scheme: light)',
   dark: '(prefers-color-scheme: dark)',
 };
 
-describe( 'MatchMedia Mock', () =>
-{
-  beforeAll( () =>
-  {
+describe('MatchMedia Mock', () => {
+  let matchMedia = new MatchMediaMock();
+  beforeAll(() => {
     matchMedia = new MatchMediaMock();
-  } );
+  });
 
-  afterEach( () =>
-  {
+  afterEach(() => {
     matchMedia.clear();
-  } );
+  });
 
-  describe( 'Adding Listeners', () =>
-  {
-    test( 'adds a new listener function for media query', () =>
-    {
+  describe('Adding Listeners', () => {
+    test('adds a new listener function for media query', () => {
       const firstListener = vi.fn();
       const secondListener = vi.fn();
-      const mql = window.matchMedia( appearanceMq.light );
+      const mql = window.matchMedia(appearanceMq.light);
 
-      mql.addListener( firstListener );
-      mql.addEventListener<'change'>( 'change', secondListener );
+      mql.addListener(firstListener);
+      mql.addEventListener<'change'>('change', secondListener);
 
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 2 );
-    } );
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(2);
+    });
 
-    test( "does not add a listener function for a media query if the event name is not 'change'", () =>
-    {
+    test("does not add a listener function for a media query if the event name is not 'change'", () => {
       const listener = vi.fn();
-      const mql = window.matchMedia( appearanceMq.light );
+      const mql = window.matchMedia(appearanceMq.light);
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      mql.addEventListener<'click'>( 'click', listener );
+      mql.addEventListener<'click'>('click', listener);
 
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 0 );
-    } );
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(0);
+    });
 
-    test( 'does not add the same listener function twice for media query', () =>
-    {
+    test('does not add the same listener function twice for media query', () => {
       const listener = vi.fn();
-      const mql = window.matchMedia( appearanceMq.light );
+      const mql = window.matchMedia(appearanceMq.light);
 
-      mql.addListener( listener );
-      mql.addEventListener<'change'>( 'change', listener );
+      mql.addListener(listener);
+      mql.addEventListener<'change'>('change', listener);
 
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 1 );
-    } );
-  } );
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(1);
+    });
+  });
 
-  describe( 'Removing Listeners', () =>
-  {
-    test( 'removes a listener function previously added for media query', () =>
-    {
+  describe('Removing Listeners', () => {
+    test('removes a listener function previously added for media query', () => {
       const firstListener = vi.fn();
       const secondListener = vi.fn();
-      const mql = window.matchMedia( appearanceMq.light );
+      const mql = window.matchMedia(appearanceMq.light);
 
-      mql.addListener( firstListener );
-      mql.addEventListener( 'change', secondListener );
+      mql.addListener(firstListener);
+      mql.addEventListener('change', secondListener);
 
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 2 );
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(2);
 
-      mql.removeListener( firstListener );
-      mql.removeEventListener( 'change', secondListener );
+      mql.removeListener(firstListener);
+      mql.removeEventListener('change', secondListener);
 
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 0 );
-    } );
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(0);
+    });
 
-    test( "does not remove a listener function for a media query if the event name is not 'change'", () =>
-    {
+    test("does not remove a listener function for a media query if the event name is not 'change'", () => {
       const listener = vi.fn();
-      const mql = window.matchMedia( appearanceMq.light );
+      const mql = window.matchMedia(appearanceMq.light);
 
-      mql.addEventListener<'change'>( 'change', listener );
+      mql.addEventListener<'change'>('change', listener);
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      mql.removeEventListener<'click'>( 'click', listener );
+      mql.removeEventListener<'click'>('click', listener);
 
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 1 );
-    } );
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(1);
+    });
 
-    test( 'does not remove a listener function for unkwown media query', () =>
-    {
+    test('does not remove a listener function for unkwown media query', () => {
       const listener = vi.fn();
 
-      expect( matchMedia.getMediaQueries() ).not.toContain( listener );
-      window.matchMedia( appearanceMq.dark ).removeListener( listener );
-      expect( matchMedia.getMediaQueries() ).not.toContain( listener );
-    } );
+      expect(matchMedia.getMediaQueries()).not.toContain(listener);
+      window.matchMedia(appearanceMq.dark).removeListener(listener);
+      expect(matchMedia.getMediaQueries()).not.toContain(listener);
+    });
 
-    test( 'does not remove the same listener function twice for media query', () =>
-    {
+    test('does not remove the same listener function twice for media query', () => {
       const firstListener = vi.fn();
       const secondListener = vi.fn();
-      const mql = window.matchMedia( appearanceMq.light );
+      const mql = window.matchMedia(appearanceMq.light);
 
-      mql.addListener( firstListener );
-      mql.addEventListener<'change'>( 'change', secondListener );
+      mql.addListener(firstListener);
+      mql.addEventListener<'change'>('change', secondListener);
 
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 2 );
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(2);
 
-      mql.removeListener( firstListener );
-      mql.removeEventListener<'change'>( 'change', firstListener );
+      mql.removeListener(firstListener);
+      mql.removeEventListener<'change'>('change', firstListener);
 
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 1 );
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toContain( secondListener );
-    } );
-  } );
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(1);
+      expect(matchMedia.getListeners(appearanceMq.light)).toContain(secondListener);
+    });
+  });
 
-  describe( 'Calling Listeners', () =>
-  {
-    test( 'throws an error when an applicable media query is not a string', () =>
-    {
-      expect( () =>
-      {
+  describe('Calling Listeners', () => {
+    test('throws an error when an applicable media query is not a string', () => {
+      expect(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        matchMedia.useMediaQuery( true );
-      } ).toThrow();
-    } );
+        matchMedia.useMediaQuery(true);
+      }).toThrow();
+    });
 
-    test( 'performs a one-time instant check when applying a media query, but before adding listener functions', () =>
-    {
-      matchMedia.useMediaQuery( appearanceMq.light );
+    test('performs a one-time instant check when applying a media query, but before adding listener functions', () => {
+      matchMedia.useMediaQuery(appearanceMq.light);
 
-      expect( window.matchMedia( appearanceMq.light ).matches ).toBeTruthy();
-    } );
+      expect(window.matchMedia(appearanceMq.light).matches).toBeTruthy();
+    });
 
-    test( 'calls listener functions when applying a media query with previously registered listeners', () =>
-    {
+    test('calls listener functions when applying a media query with previously registered listeners', () => {
       const firstListener = vi.fn<any[]>();
       const secondListener = vi.fn<any[]>();
 
-      const mql = window.matchMedia( appearanceMq.light );
+      const mql = window.matchMedia(appearanceMq.light);
 
-      mql.addListener( ( ev ) => ev.matches && firstListener() );
-      mql.addListener( ( ev ) => ev.matches && secondListener() );
+      mql.addListener((ev) => ev.matches && firstListener());
+      mql.addListener((ev) => ev.matches && secondListener());
 
-      matchMedia.useMediaQuery( appearanceMq.light );
+      matchMedia.useMediaQuery(appearanceMq.light);
 
-      expect( firstListener ).toBeCalledTimes( 1 );
-      expect( secondListener ).toBeCalledTimes( 1 );
-    } );
-  } );
+      expect(firstListener).toBeCalledTimes(1);
+      expect(secondListener).toBeCalledTimes(1);
+    });
+  });
 
-  describe( 'Clearing and destroying', () =>
-  {
-    test( 'clears all registered media queries and their listeners', () =>
-    {
+  describe('Clearing and destroying', () => {
+    test('clears all registered media queries and their listeners', () => {
       const firstListener = vi.fn();
       const secondListener = vi.fn();
-      const mql = window.matchMedia( appearanceMq.light );
+      const mql = window.matchMedia(appearanceMq.light);
 
-      mql.addListener( firstListener );
-      mql.addEventListener<'change'>( 'change', secondListener );
+      mql.addListener(firstListener);
+      mql.addEventListener<'change'>('change', secondListener);
 
-      expect( matchMedia.getMediaQueries() ).toHaveLength( 1 );
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 2 );
+      expect(matchMedia.getMediaQueries()).toHaveLength(1);
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(2);
 
       matchMedia.clear();
 
-      expect( matchMedia.getMediaQueries() ).toHaveLength( 0 );
-      expect( matchMedia.getListeners( appearanceMq.light ) ).toHaveLength( 0 );
-    } );
+      expect(matchMedia.getMediaQueries()).toHaveLength(0);
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(0);
+    });
 
-    test( 'destroys the implementation of window.matchMedia', () =>
-    {
+    test('destroys the implementation of window.matchMedia', () => {
       matchMedia.destroy();
 
-      expect( window.matchMedia ).toBeUndefined();
+      expect(matchMedia.getMediaQueries()).toHaveLength(0);
+      expect(matchMedia.getListeners(appearanceMq.light)).toHaveLength(0);
 
       // Restoring the mock in case of reordering tests
       matchMedia = new MatchMediaMock();
-    } );
-  } );
-} );
+    });
+  });
+});
