@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "test": "vitest",
+    "coverage": "vitest run --coverage",
     "build": "tsc",
     "lint": "tslint -p tsconfig.json"
   },
