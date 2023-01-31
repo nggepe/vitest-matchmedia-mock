@@ -146,6 +146,7 @@ export default class MatchMediaMock {
    */
   public clear(): void {
     this.mediaQueries = {};
+    this.currentMediaQuery = '';
   }
 
   /**
