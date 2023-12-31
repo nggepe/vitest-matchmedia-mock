@@ -21,7 +21,7 @@ describe('your test', () => {
   });
 
   afterEach(() => {
-    matchMedia.clear();
+    matchMediaMock.clear();
   });
 
   afterAll(() => {
