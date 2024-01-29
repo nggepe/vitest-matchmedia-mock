@@ -1,5 +1,7 @@
 # Vitest MatchMediaMock
 
+[![codecov](https://codecov.io/gh/nggepe/vitest-matchmedia-mock/graph/badge.svg?token=UEZOJ9PAYZ)](https://codecov.io/gh/nggepe/vitest-matchmedia-mock)
+
 how to import:
 
 ```typescript
