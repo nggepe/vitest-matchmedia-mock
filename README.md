@@ -1,5 +1,11 @@
 # Vitest MatchMediaMock
 
+how to import:
+
+```typescript
+import MatchMediaMock from 'vitest-matchmedia-mock`
+```
+
 # Usage example
 
 ```typescript
