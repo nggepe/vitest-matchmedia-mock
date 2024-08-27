@@ -40,4 +40,6 @@ describe('your test', () => {
 });
 ```
 [npm-downloads-url]: https://npmcharts.com/compare/vitest-matchmedia-mock?minimal=true
+[npm-downloads-image]: https://badgen.net/npm/dm/vitest-matchmedia-mock
+[npm-version-image]: https://badgen.net/npm/v/vitest-matchmedia-mock
 [npm-url]: https://npmjs.org/package/vitest-matchmedia-mock
