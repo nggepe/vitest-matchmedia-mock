@@ -11,6 +11,7 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "build": "tsc",
+    "prepare": "npm run build",
     "lint": "tslint -p tsconfig.json"
   },
   "repository": {
