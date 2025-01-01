@@ -120,19 +120,60 @@ describe('MatchMedia Mock', () => {
       expect(window.matchMedia(appearanceMq.light).matches).toBeTruthy();
     });
 
-    test('calls listener functions when applying a media query with previously registered listeners', () => {
-      const firstListener = vi.fn<any[]>();
-      const secondListener = vi.fn<any[]>();
+    test('calls listener functions when applying a media query with previously registered listeners if they match', () => {
+      const firstListener = vi.fn();
+      const secondListener = vi.fn();
 
       const mql = window.matchMedia(appearanceMq.light);
 
-      mql.addListener((ev) => ev.matches && firstListener());
-      mql.addListener((ev) => ev.matches && secondListener());
+      mql.addEventListener<'change'>('change', firstListener);
+      mql.addEventListener<'change'>('change', secondListener);
 
       matchMedia.useMediaQuery(appearanceMq.light);
 
       expect(firstListener).toBeCalledTimes(1);
       expect(secondListener).toBeCalledTimes(1);
+    });
+
+    test('calls listener functions when applying a media query with previously registered listeners if they dont match', () => {
+      const firstListener = vi.fn();
+      const secondListener = vi.fn();
+
+      const mql = window.matchMedia(appearanceMq.light);
+
+      mql.addEventListener<'change'>('change', firstListener);
+      mql.addEventListener<'change'>('change', secondListener);
+
+      matchMedia.useMediaQuery(appearanceMq.dark);
+
+      expect(firstListener).toBeCalledTimes(1);
+      expect(secondListener).toBeCalledTimes(1);
+    });
+
+    test('changes `matches` state to true if a subsequent change does match', () => {
+      const firstListener = vi.fn();
+
+      const mql = window.matchMedia(appearanceMq.light);
+
+      mql.addEventListener<'change'>('change', firstListener);
+
+      matchMedia.useMediaQuery(appearanceMq.light);
+
+      expect(firstListener).toBeCalledTimes(1);
+      expect(window.matchMedia(appearanceMq.light).matches).toBeTruthy();
+    });
+
+    test('changes `matches` state to false if a subsequent change doesnt match', () => {
+      const firstListener = vi.fn();
+
+      const mql = window.matchMedia(appearanceMq.light);
+
+      mql.addEventListener<'change'>('change', firstListener);
+
+      matchMedia.useMediaQuery(appearanceMq.dark);
+
+      expect(firstListener).toBeCalledTimes(1);
+      expect(window.matchMedia(appearanceMq.light).matches).not.toBeTruthy();
     });
   });
 
