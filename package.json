@@ -1,6 +1,6 @@
 {
   "name": "vitest-matchmedia-mock",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "mocking window.matchmedia with vitest",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,6 +11,7 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "build": "tsc",
+    "prepare": "npm run build",
     "lint": "tslint -p tsconfig.json"
   },
   "repository": {
