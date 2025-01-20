@@ -27,7 +27,7 @@
   "homepage": "https://github.com/nggepe/vitest-matchmedia-mock#readme",
   "devDependencies": {
     "@vitest/coverage-c8": "^0.26.3",
-    "@vitest/coverage-v8": "^2.0.1",
+    "@vitest/coverage-v8": "^3.0.2",
     "jsdom": "^26.0.0",
     "prettier": "^3.2.4",
     "tslint": "^6.1.3",
