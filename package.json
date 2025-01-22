@@ -1,6 +1,6 @@
 {
   "name": "vitest-matchmedia-mock",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "mocking window.matchmedia with vitest",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,11 @@
     "type": "git",
     "url": "git+https://github.com/nggepe/vitest-matchmedia-mock.git"
   },
-  "keywords": [],
+  "keywords": [
+    "mock",
+    "matchmedia",
+    "vitest"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
