@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "ES5",
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM"],
     "declaration": true,
     "sourceMap": true,
     "outDir": "./dist",
@@ -15,7 +16,5 @@
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"]
 }
