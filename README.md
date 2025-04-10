@@ -7,7 +7,7 @@
 how to import:
 
 ```typescript
-import MatchMediaMock from 'vitest-matchmedia-mock`
+import MatchMediaMock from 'vitest-matchmedia-mock'
 ```
 
 # Usage example
