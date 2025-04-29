@@ -79,6 +79,9 @@ describe('your test', () => {
   });
 });
 ```
+## Contributors
+
+<a href="https://github.com/nggepe/vitest-matchmedia-mock/graphs/contributors"><img src = "https://contrib.rocks/image?repo=nggepe/vitest-matchmedia-mock"/></a>
 
 [npm-downloads-url]: https://npmcharts.com/compare/vitest-matchmedia-mock?minimal=true
 [npm-downloads-image]: https://badgen.net/npm/dm/vitest-matchmedia-mock
