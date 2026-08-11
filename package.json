@@ -12,7 +12,7 @@
     "coverage": "vitest run --coverage",
     "build": "tsc",
     "prepare": "npm run build",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,6 @@
     "eslint": "^9.18.0",
     "jsdom": "^26.0.0",
     "prettier": "^3.2.4",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "^5.3.3",
     "vitest": "^4.1.7"
   }
