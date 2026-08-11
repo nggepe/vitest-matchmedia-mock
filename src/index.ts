@@ -35,7 +35,9 @@ export default class MatchMediaMock {
     [key: string]: MediaQueryListener[];
   } = {};
 
-  private mediaQueryList!: MediaQueryList;
+  private mediaQueryLists: {
+    [key: string]: MediaQueryList;
+  } = {};
 
   private currentMediaQuery!: string;
 
@@ -44,7 +46,7 @@ export default class MatchMediaMock {
       writable: true,
       configurable: true,
       value: (query: string): MediaQueryList => {
-        this.mediaQueryList = {
+        const mediaQueryList: MediaQueryList = {
           matches: query === this.currentMediaQuery,
           media: query,
           onchange: null,
@@ -66,7 +68,9 @@ export default class MatchMediaMock {
           },
         };
 
-        return this.mediaQueryList;
+        this.mediaQueryLists[query] = mediaQueryList;
+
+        return mediaQueryList;
       },
     });
   }
@@ -113,19 +117,14 @@ export default class MatchMediaMock {
 
     if (!Object.entries(this.mediaQueries).length) return;
 
-    const mqListEvent: Partial<MediaQueryListEvent> = this.mediaQueries[mediaQuery]
-      ? {
-          matches: true,
-          media: mediaQuery,
-        }
-      : {
-          matches: false,
-          media: mediaQuery,
-        };
+    Object.entries(this.mediaQueries).forEach(([query, listeners]) => {
+      const mqListEvent: Partial<MediaQueryListEvent> = {
+        matches: query === mediaQuery,
+        media: query,
+      };
 
-    Object.entries(this.mediaQueries).forEach(([_, value]) => {
-      value.forEach((listener) => {
-        listener.call(this.mediaQueryList, mqListEvent as MediaQueryListEvent);
+      listeners.forEach((listener) => {
+        listener.call(this.mediaQueryLists[query], mqListEvent as MediaQueryListEvent);
       });
     });
   }
@@ -153,6 +152,7 @@ export default class MatchMediaMock {
    */
   public clear(): void {
     this.mediaQueries = {};
+    this.mediaQueryLists = {};
     this.currentMediaQuery = '';
   }
 

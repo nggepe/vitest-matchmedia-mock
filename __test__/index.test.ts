@@ -175,6 +175,31 @@ describe('MatchMedia Mock', () => {
       expect(firstListener).toBeCalledTimes(1);
       expect(window.matchMedia(appearanceMq.light).matches).not.toBeTruthy();
     });
+
+    test('only calls the listener of the matching media query with `matches: true`, others with `matches: false`', () => {
+      const bigListener = vi.fn();
+      const mediumListener = vi.fn();
+      const smallListener = vi.fn();
+
+      const bigQuery = '(min-width: 1000px)';
+      const mediumQuery = '(min-width: 600px) and (max-width: 1000px)';
+      const smallQuery = '(max-width: 600px)';
+
+      window.matchMedia(bigQuery).addEventListener<'change'>('change', bigListener);
+      window.matchMedia(mediumQuery).addEventListener<'change'>('change', mediumListener);
+      window.matchMedia(smallQuery).addEventListener<'change'>('change', smallListener);
+
+      matchMedia.useMediaQuery(bigQuery);
+
+      expect(bigListener).toBeCalledTimes(1);
+      expect(bigListener.mock.calls[0][0]).toMatchObject({ matches: true, media: bigQuery });
+
+      expect(mediumListener).toBeCalledTimes(1);
+      expect(mediumListener.mock.calls[0][0]).toMatchObject({ matches: false, media: mediumQuery });
+
+      expect(smallListener).toBeCalledTimes(1);
+      expect(smallListener.mock.calls[0][0]).toMatchObject({ matches: false, media: smallQuery });
+    });
   });
 
   describe('Clearing and destroying', () => {
